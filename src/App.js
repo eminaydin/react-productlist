@@ -11,8 +11,7 @@ import Home from './components/Home';
 import Product from "./components/Product";
 import data from "./data/products.json"
 
-function App({ match }) {
-  console.log(match);
+function App() {
 
   return (
     <Router>

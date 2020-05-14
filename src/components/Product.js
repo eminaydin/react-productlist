@@ -1,22 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Product = ({ match, data }) => {
-    var product = data.find(p => p.id === match.params.productId);
-    var productData;
-    if (product)
-        productData = (
-            <div>
-                <h3> {product.name} </h3>
-                <p>{product.description}</p>
-                <hr />
-                <h4>{product.status}</h4>{" "}
-            </div>
-        );
-    else productData = <h2> Sorry. Product doesn't exist </h2>;
+    const [index, setIndex] = useState(0);
+    const product = data.find(p => p.id === match.params.productId);
 
+    console.log(data[index]);
+
+    useEffect(() => {
+        let productIndex = data.indexOf(product)
+        setIndex(productIndex)
+        return () => {
+
+        };
+    }, []);
+
+    function backHandle() {
+        setIndex(index - 1)
+    }
+    function nextHandle() {
+        setIndex(index + 1)
+    }
+
+
+
+    let person = data[index];
     return (
+
         <div>
-            {productData}
+            <div>
+                <h3><span><Link to="/products">  Return Back</Link></span> {person.name} </h3>
+                <img src={person.image}></img>
+                <p>{person.description}</p>
+                <p>{person.price}</p>
+                <button onClick={backHandle} >previous</button> <button onClick={nextHandle}>next</button>
+            </div>
 
         </div>
     );

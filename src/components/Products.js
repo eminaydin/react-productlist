@@ -4,7 +4,6 @@ import { Link, Route } from 'react-router-dom';
 import Product from './Product';
 
 function Products({ match }) {
-    console.log(`${match.path}/:productId`);
 
     return (
         <div>
