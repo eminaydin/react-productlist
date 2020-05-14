@@ -1,8 +1,9 @@
 import React from 'react';
 import data from "../data/products.json"
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+import Product from './Product';
 
-const Products = () => {
+function Products({ match }) {
     return (
         <div>
             <table>
@@ -11,16 +12,18 @@ const Products = () => {
                     <th>Description</th>
                     <th>Price</th>
                 </tr>
-                {data.map(e => {
+                {data.map(({ name, description, price, id, }) => {
                     return (
-                        <tr>
-                            <th>{e.name}</th>
-                            <th>{e.description}</th>
-                            <th>{e.price}</th>
+                        <Link to={`${match.url}/${id}`}>     <tr key={id}>
+                            <th>{name}</th>
+                            <th>{description}</th>
+                            <th>{price}</th>
                         </tr>
+                        </Link>
                     )
                 })}
             </table>
+            <Route path={`${match.path}/:topicId`} component={Product} />
         </div>
     );
 }
