@@ -21,6 +21,7 @@ const Product = ({ match, data }) => {
     function nextHandle() {
         setIndex(index + 1)
     }
+    console.log(data);
 
 
 
@@ -33,10 +34,11 @@ const Product = ({ match, data }) => {
                 <img src={person.image}></img>
                 <p>{person.description}</p>
                 <p>{person.price}</p>
-                <button onClick={backHandle} >previous</button> <button onClick={nextHandle}>next</button>
+                <button onClick={backHandle} disabled={index <= 0 && true}> previous</button>
+                <button onClick={nextHandle} disabled={index >= 39 && true}>next</button>
             </div>
 
-        </div>
+        </div >
     );
 }
 
