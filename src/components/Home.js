@@ -1,12 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Home = ({ data }) => {
+const Home = ({ data, match }) => {
 
     return (
         <div>
             <h1>Welcome user</h1>
             {data.map(e => {
-                return <p key={e.id}>{e.name}</p>
+                return <Link to={`products/${e.id}`}>
+                    <div>
+                        <p key={e.id}>{e.name}</p>
+                        <span style={{ float: "right" }}> {e.price}</span>
+                    </div>
+                </Link>
             })}
         </div>
     );
