@@ -5,8 +5,6 @@ const Product = ({ match, data }) => {
     const [index, setIndex] = useState(0);
     const product = data.find(p => p.id === match.params.productId);
 
-    console.log(data[index]);
-
     useEffect(() => {
         let productIndex = data.indexOf(product)
         setIndex(productIndex)
@@ -21,8 +19,9 @@ const Product = ({ match, data }) => {
     function nextHandle() {
         setIndex(index + 1)
     }
-    console.log(data);
 
+
+    data.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
 
 
     let person = data[index];
