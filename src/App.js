@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -9,9 +9,14 @@ import {
 import Products from './components/Products';
 import Home from './components/Home';
 import Product from "./components/Product";
-import data from "./data/products.json"
+import data from "./data/products.json";
 
 function App() {
+  data.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+  const fourItems = data.slice(0, 4)
+
+  console.log(fourItems);
+
 
   return (
     <Router>
@@ -30,7 +35,7 @@ function App() {
         <Switch>
           <Route path={`/products/:productId`} render={(props) => <Product data={data} {...props} />} />
           <Route path="/products" component={Products} />
-          <Route path="/" component={Home} />
+          <Route path="/" render={(props) => <Home data={fourItems} {...props} />} />
         </Switch>
       </div>
     </Router>

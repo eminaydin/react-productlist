@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Product = ({ match, data }) => {
+const Product = ({ match, data, parentFunc }) => {
     const [index, setIndex] = useState(0);
     const product = data.find(p => p.id === match.params.productId);
 
@@ -20,11 +20,8 @@ const Product = ({ match, data }) => {
         setIndex(index + 1)
     }
 
-
-    data.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-
-
     let person = data[index];
+
     return (
 
         <div>
