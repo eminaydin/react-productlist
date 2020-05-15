@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Product = ({ match, data, history }) => {
-    console.log(match);
-
     const [index, setIndex] = useState(0);
     const product = data.find(p => p.id === match.params.productId);
+    let person = data[index];
 
     useEffect(() => {
         let productIndex = data.indexOf(product)
@@ -17,13 +16,13 @@ const Product = ({ match, data, history }) => {
 
     function backHandle() {
         setIndex(index - 1)
+        history.push(`/products/${person.id}`)
     }
     function nextHandle() {
         setIndex(index + 1)
+        history.push(`/products/${person.id}`)
+
     }
-
-    let person = data[index];
-
     function back() {
         history.goBack();
     }

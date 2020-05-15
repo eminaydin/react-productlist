@@ -1,7 +1,6 @@
 import React from 'react';
 import data from "../data/products.json"
 import { Link, Route } from 'react-router-dom';
-import Product from './Product';
 
 function Products({ match, history }) {
 
