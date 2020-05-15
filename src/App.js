@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 import Products from './components/Products';
 import Home from './components/Home';
@@ -14,6 +15,8 @@ import data from "./data/products.json";
 function App() {
   data.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
   const fourItems = data.slice(0, 4)
+
+  console.log(useHistory);
 
   console.log(fourItems);
 

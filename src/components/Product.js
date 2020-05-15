@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Product = ({ match, data, parentFunc }) => {
+const Product = ({ match, data, history }) => {
+    console.log(match);
+
     const [index, setIndex] = useState(0);
     const product = data.find(p => p.id === match.params.productId);
 
@@ -22,11 +24,14 @@ const Product = ({ match, data, parentFunc }) => {
 
     let person = data[index];
 
+    function back() {
+        history.goBack();
+    }
     return (
 
         <div>
             <div>
-                <h3><span><Link to="/products">  Return Back</Link></span> {person.name} </h3>
+                <h3><span onClick={back}>  Return Back</span> {person.name} </h3>
                 <img src={person.image}></img>
                 <p>{person.description}</p>
                 <p>{person.price}</p>
