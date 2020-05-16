@@ -7,14 +7,19 @@ const Home = ({ data, match }) => {
     return (
         <div>
             <h1>Welcome user</h1>
-            {data.map(e => {
-                return <Link to={`products/${e.id}`} key={e.id}>
-                    <div >
-                        <p >{e.name}</p>
-                        <span style={{ float: "right" }}> {e.price}</span>
+            <div class="boxes" >
+                {data.map(e => {
+                    return <div class="item" key={e.id}>
+                        <h2>{e.name}</h2>
+                        <hr />
+                        <p>{e.shortDescription}
+                        </p>
+                        <Link to={`products/${e.id}`} ><button>Next</button></Link>
                     </div>
-                </Link>
-            })}
+
+
+                })}
+            </div>
         </div>
     );
 }
