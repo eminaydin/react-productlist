@@ -7,20 +7,18 @@ const Home = ({ data, match }) => {
     return (
         <div>
             <h1>Welcome user</h1>
-            <div class="boxes" >
+            <div class="boxes">
                 {data.map(e => {
-                    return <div class="item" key={e.id}>
+                    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(e.price);
+                    return <Link to={`products/${e.id}`} className="item" key={e.id}>
                         <h2>{e.name}</h2>
-                        <hr />
                         <p>{e.shortDescription}
                         </p>
-                        <Link to={`products/${e.id}`} ><button>Next</button></Link>
-                    </div>
-
-
+                        <span className="price">{currencyFormat}</span>
+                    </Link>
                 })}
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -289,5 +289,40 @@ a:-webkit-any-link {
 
 .boxes {
   display: flex;
-  width: 50%;
+  flex-wrap: wrap;
+  margin-top: -10px;
+  margin-left: -10px;
+  justify-content: center;
+  > .item {
+    position: relative;
+    width: calc(38% - 10px);
+    margin-left: 10px;
+    margin-top: 80px;
+    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    &:hover {
+      box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+    }
+    > h2 {
+      flex-basis: 40%;
+    }
+    > p {
+      flex-basis: 50%;
+    }
+    > .price {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      border: 1px solid black;
+      border-radius: 50% 20%;
+      padding: 10px;
+      transition: 200ms;
+      &:hover {
+        transform: rotate(20deg);
+        transition: 200ms;
+      }
+    }
+  }
 }
