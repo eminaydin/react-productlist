@@ -24,7 +24,6 @@ const Product = ({ match, data, history }) => {
         history.replace(`/products/${product.id}`)
 
     }
-
     return (
 
         <main>
