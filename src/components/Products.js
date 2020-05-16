@@ -19,12 +19,13 @@ function Products({ match, history }) {
                     <div class="col col-3">Price</div>
                 </li>
                 {data.map(({ name, shortDescription, price, id }) => {
+                    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
                     return (
                         <div>
                             <Link to={`${match.url}/${id}`}>  <li class="table-row" key={id}>
                                 <div class="col col-1" data-label="Job Id">{name}</div>
                                 <div class="col col-2" data-label="Customer Name">{shortDescription}</div>
-                                <div class="col col-3" data-label="Amount">${price}</div>
+                                <div class="col col-3" data-label="Amount">${currencyFormat}</div>
 
                             </li>
                             </Link>

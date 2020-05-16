@@ -1,3 +1,7 @@
+body {
+  height: 98vh;
+  background-color: cornsilk;
+}
 main {
   max-width: 60%;
   margin: 0 auto;
@@ -26,7 +30,7 @@ main {
 
     .icon {
       flex: 1 0 10px;
-      background: #115dd8;
+      background: #95a5a6;
       color: #fff;
       padding: 10px 10px;
       transition: 200ms;
@@ -154,11 +158,11 @@ main {
       left: 40px;
       width: calc(100% - 40px);
       height: 3px;
-      background: #115dd8;
+      background: #95a5a6;
       background: linear-gradient(
         to right,
-        #115dd8 0%,
-        #115dd8 20%,
+        #95a5a6 0%,
+        #95a5a6 20%,
         #ddd 20%,
         #ddd 100%
       );
@@ -168,17 +172,17 @@ main {
       flex: 1 0 10px;
       button {
         cursor: pointer;
-        border: 1px solid #115dd8;
+        border: 1px solid #95a5a6;
         padding: 14px 30px;
         border-radius: 200px;
-        color: #115dd8;
+        color: #95a5a6;
         background: #fff;
         font-family: "Open Sans", sans-serif;
         font-size: 16px;
         transition: 200ms;
 
         &:hover {
-          background: #115dd8;
+          background: #95a5a6;
           color: #fff;
         }
       }
@@ -187,18 +191,18 @@ main {
     .action {
       button {
         cursor: pointer;
-        border: 1px solid #115dd8;
+        border: 1px solid #95a5a6;
         padding: 14px 30px;
         border-radius: 200px;
         color: #fff;
-        background: #115dd8;
+        background: #95a5a6;
         font-family: "Open Sans", sans-serif;
         font-size: 16px;
         transition: 200ms;
 
         &:hover {
           background: #fff;
-          color: #115dd8;
+          color: #95a5a6;
         }
       }
     }
@@ -294,6 +298,7 @@ a:-webkit-any-link {
   margin-left: -10px;
   justify-content: center;
   > .item {
+    background-color: #fff;
     position: relative;
     width: calc(38% - 10px);
     margin-left: 10px;

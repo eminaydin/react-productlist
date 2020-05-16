@@ -24,6 +24,7 @@ const Product = ({ match, data, history }) => {
         history.replace(`/products/${product.id}`)
 
     }
+    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
     return (
 
         <main>
@@ -39,7 +40,7 @@ const Product = ({ match, data, history }) => {
                         <div className="featured_text">
                             <h1>{product.name}</h1>
                             <p className="sub">Office Chair</p>
-                            <p className="price">{product.price}</p>
+                            <p className="price">{currencyFormat}</p>
                         </div>
                         <div className="image">
                             <img src={product.image} alt="" />
