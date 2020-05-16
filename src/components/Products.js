@@ -1,6 +1,7 @@
 import React from 'react';
 import data from "../data/products.json"
 import { Link, Route } from 'react-router-dom';
+import "../App.scss"
 
 function Products({ match, history }) {
 
@@ -9,29 +10,31 @@ function Products({ match, history }) {
         history.goBack();
     }
     return (
-        <div>
 
-            <table>
-                <tr>
-                    <th><a onClick={back}>ss</a>    Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                </tr>
-                {data.map(({ name, description, price, id }) => {
+        <div class="container">
+            <ul class="responsive-table">
+                <li class="table-header">
+                    <div class="col col-1">Name</div>
+                    <div class="col col-2">Description</div>
+                    <div class="col col-3">Price</div>
+                </li>
+                {data.map(({ name, shortDescription, price, id }) => {
                     return (
-                        <Link to={`${match.url}/${id}`} >
-                            <tr key={id}>
-                                <th>{name}</th>
-                                <th>{description}</th>
-                                <th>{price}</th>
-                            </tr>
-                        </Link>
+                        <div>
+                            <Link to={`${match.url}/${id}`}>  <li class="table-row" key={id}>
+                                <div class="col col-1" data-label="Job Id">{name}</div>
+                                <div class="col col-2" data-label="Customer Name">{shortDescription}</div>
+                                <div class="col col-3" data-label="Amount">${price}</div>
+
+                            </li>
+                            </Link>
+                        </div>
                     )
                 })}
-            </table>
-
-
+            </ul>
         </div>
+
+
     );
 }
 
