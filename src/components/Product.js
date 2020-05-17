@@ -2,35 +2,36 @@ import React, { useState, useEffect } from 'react';
 import "../App.scss"
 import { MdKeyboardBackspace } from "react-icons/md";
 
+
 const Product = ({ match, data, history }) => {
     let [index, setIndex] = useState(0);
     const current = data.find(p => p.id === match.params.productId);
     let product = data[index];
+    let randomNumber = Math.floor(Math.random() * (100 - 50) + 50);
+
 
     useEffect(() => {
         let productIndex = data.indexOf(current)
         setIndex(productIndex)
+
         return () => {
 
         };
-    }, [current, data]);
+    }, [data]);
 
-    function backHandle() {
-        setIndex(index -= 1)
+    function clickHandler(e) {
+        setIndex(e.currentTarget.name === "next" ? index + 1 : index - 1)
         history.replace(`/products/${product.id}`)
     }
-    function nextHandle() {
-        setIndex(index += 1)
-        history.replace(`/products/${product.id}`)
 
-    }
+
     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
     return (
 
         <main>
             <div className="card">
                 <div className="card__title">
-                    <div className="icon" onClick={() => history.goBack()} disabled={index <= 0 && true}>
+                    <div className="icon" onClick={() => history.goBack()} >
                         <a href="#"> <MdKeyboardBackspace /></a>
                     </div>
                     <h3>New products</h3>
@@ -52,16 +53,16 @@ const Product = ({ match, data, history }) => {
                         </div>
                         <span className="stock"><i className="fa fa-pen"></i> In stock</span>
                         <div className="reviews">
-                            <span>(64 reviews)</span>
+                            <span>({randomNumber} reviews)</span>
                         </div>
                     </div>
                 </div>
                 <div className="card__footer">
                     <div className="recommend">
-                        <button type="button" onClick={backHandle} disabled={index <= 0 && true}>Next Product</button>
+                        <button type="button" name="back" onClick={clickHandler} disabled={index <= 0 && true}>Next Product</button>
                     </div>
                     <div className="action">
-                        <button type="button" onClick={nextHandle} disabled={index >= 39 && true}>Next Product</button>
+                        <button type="button" name="next" onClick={clickHandler} disabled={index >= 39 && true}>Next Product</button>
                     </div>
                 </div>
             </div>
