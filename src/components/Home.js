@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = ({ data, match }) => {
+const Home = ({ data }) => {
 
 
     return (
         <div>
             <h1>Welcome user</h1>
             <div class="boxes">
-                {data.map(e => {
-                    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(e.price);
-                    return <Link to={`products/${e.id}`} className="item" key={e.id}>
-                        <h2>{e.name}</h2>
-                        <p>{e.shortDescription}
+                {data.map(({ price, name, shortDescription, id }) => {
+                    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
+                    return <Link to={`products/${id}`} className="item" key={id}>
+                        <h2>{name}</h2>
+                        <p>{shortDescription}
                         </p>
                         <span className="price">{currencyFormat}</span>
                     </Link>
