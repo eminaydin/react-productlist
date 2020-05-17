@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import {
   BrowserRouter as Router,
@@ -10,6 +10,7 @@ import Products from './components/Products';
 import Home from './components/Home';
 import Product from "./components/Product";
 import data from "./data/products.json";
+import { AnimatePresence } from "framer-motion"
 
 function App() {
   data.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
@@ -29,12 +30,13 @@ function App() {
             </li>
           </ul>
         </nav>
-
-        <Switch>
-          <Route path={`/products/:productId`} render={(props) => <Product data={data} {...props} />} />
-          <Route path="/products" component={Products} />
-          <Route path="/" render={(props) => <Home data={fourItems} {...props} />} />
-        </Switch>
+        <AnimatePresence>
+          <Switch>
+            <Route path={`/products/:productId`} render={(props) => <Product data={data} {...props} />} />
+            <Route path="/products" render={(props) => <Products {...props} />} />
+            <Route path="/" render={(props) => <Home data={fourItems} {...props} />} />
+          </Switch>
+        </AnimatePresence>
       </div>
     </Router>
   );
