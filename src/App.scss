@@ -331,3 +331,15 @@ a:-webkit-any-link {
     }
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .boxes > .item {
+    width: 100%;
+  }
+  main {
+    max-width: 100%;
+  }
+  .card .card__body {
+    display: block;
+  }
+}
