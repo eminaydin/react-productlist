@@ -3,7 +3,7 @@ import "../App.scss"
 import { MdKeyboardBackspace } from "react-icons/md";
 import { motion } from "framer-motion"
 
-const Product = ({ match, data, history, animation }) => {
+const Product = ({ match, data, history, animation, location }) => {
     let [index, setIndex] = useState(0);
 
     let product = data[index];
@@ -11,7 +11,7 @@ const Product = ({ match, data, history, animation }) => {
     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
 
     useEffect(() => {
-        const currentItem = data.find(p => p.id === match.params.productId);
+        const currentItem = data.find(eachProduct => eachProduct.id === match.params.productId);
         let indexOfProduct = data.indexOf(currentItem)
         setIndex(indexOfProduct)
 
@@ -21,6 +21,7 @@ const Product = ({ match, data, history, animation }) => {
         setIndex(e.currentTarget.name === "next" ? index + 1 : index - 1)
         history.replace(`/products/${product.id}`)
     }
+
 
 
 
