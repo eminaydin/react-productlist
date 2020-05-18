@@ -1,22 +1,12 @@
 import React from 'react';
 import data from "../data/products.json"
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "../App.scss"
 import { motion } from "framer-motion"
 
-function Products({ match, history }) {
+function Products({ match, animation }) {
 
-    const pageVariants = {
-        initial: {
-            x: 0,
-        },
-        in: {
-            x: 50,
-        },
-        out: {
-            x: 0,
-        },
-    }
+
 
     return (
 
@@ -24,7 +14,7 @@ function Products({ match, history }) {
             initial="initial"
             animate="in"
             exit="out"
-            variants={pageVariants}
+            variants={animation}
 
         >
             <ul class="responsive-table">
