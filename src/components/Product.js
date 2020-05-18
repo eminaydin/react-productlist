@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import "../App.scss"
 import { MdKeyboardBackspace } from "react-icons/md";
+import { motion } from "framer-motion"
 
-
-const Product = ({ match, data, history }) => {
+const Product = ({ match, data, history, animation }) => {
     let [index, setIndex] = useState(0);
-    const current = data.find(p => p.id === match.params.productId);
+
     let product = data[index];
     let randomNumber = Math.floor(Math.random() * (100 - 50) + 50);
-
+    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
 
     useEffect(() => {
-        let productIndex = data.indexOf(current)
-        setIndex(productIndex)
+        const currentItem = data.find(p => p.id === match.params.productId);
+        let indexOfProduct = data.indexOf(currentItem)
+        setIndex(indexOfProduct)
 
-        return () => {
-
-        };
-    }, [data]);
+    }, []);
 
     function clickHandler(e) {
         setIndex(e.currentTarget.name === "next" ? index + 1 : index - 1)
@@ -25,10 +23,13 @@ const Product = ({ match, data, history }) => {
     }
 
 
-    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
+
     return (
 
-        <main>
+        <motion.main initial="initial"
+            animate="in"
+            exit="out"
+            variants={animation}>
             <div className="card">
                 <div className="card__title">
                     <div className="icon" onClick={() => history.goBack()} >
@@ -59,14 +60,14 @@ const Product = ({ match, data, history }) => {
                 </div>
                 <div className="card__footer">
                     <div className="recommend">
-                        <button type="button" name="back" onClick={clickHandler} disabled={index <= 0 && true}>Next Product</button>
+                        <button type="button" name="back" onClick={clickHandler} disabled={index <= 0 && true}>Previous Product</button>
                     </div>
                     <div className="action">
                         <button type="button" name="next" onClick={clickHandler} disabled={index >= 39 && true}>Next Product</button>
                     </div>
                 </div>
             </div>
-        </main>
+        </motion.main>
     );
 }
 
