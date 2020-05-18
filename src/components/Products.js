@@ -5,8 +5,10 @@ import "../App.scss"
 import { motion } from "framer-motion"
 
 
-function Products({ match, animation }) {
-    const [mydata, setMyData] = useState(data);
+function Products({ match, animation, location, history }) {
+    console.log(location);
+
+    const [myData, setMyData] = useState(data);
 
     const descending = [].concat(data)
         .sort((a, b) => a.name < b.name ? 1 : -1);
@@ -14,10 +16,25 @@ function Products({ match, animation }) {
     const ascending = [].concat(data)
         .sort((a, b) => a.name > b.name ? 1 : -1);
 
-    const ascSorting = () => setMyData(ascending)
+    const ascSorting = () => {
+        setMyData(ascending); history.replace({
+            pathname: '/products',
+            search: '?sort=asc',
+        })
+    }
 
-    const descSorting = () => setMyData(descending)
-    const reset = () => setMyData(data)
+    const descSorting = () => {
+        setMyData(descending); history.replace({
+            pathname: '/products',
+            search: '?sort=desc',
+        })
+    }
+    const reset = () => {
+        setMyData(data); history.replace({
+            pathname: '/products',
+            search: '',
+        })
+    }
     return (
         <motion.div className="container"
             initial="initial"
@@ -27,22 +44,26 @@ function Products({ match, animation }) {
 
         >
             <ul className="responsive-table">
-                <li className="table-header">
-                    <button className="col col-1" onClick={reset}>Reset</button>
-                    <button className="col col-2" onClick={ascSorting}>Sort up</button>
-                    <button className="col col-3" onClick={descSorting}>Sort down</button>
-                </li>
+                <div className="table-sorting">
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={ascSorting}>Sort up</button>
+                    <button onClick={descSorting}>Sort down</button>
+                </div>
+                <h2> Product List</h2>
                 <li className="table-header">
                     <div className="col col-1">Name</div>
                     <div className="col col-2">Description</div>
                     <div className="col col-3">Price</div>
                 </li>
 
-                {mydata.map(({ name, shortDescription, price, id }) => {
+
+
+
+                {myData.map(({ name, shortDescription, price, id, slug }) => {
                     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
                     return (
                         <div key={id}>
-                            <Link to={`${match.url}/${id}`}>  <li className="table-row" >
+                            <Link to={`${match.url}/${slug}`}>  <li className="table-row" >
                                 <div className="col col-1" data-label="Job Id">{name}</div>
                                 <div className="col col-2" data-label="Customer Name">{shortDescription}</div>
                                 <div className="col col-3" data-label="Amount">{currencyFormat}</div>
