@@ -19,10 +19,10 @@ function App() {
 
   const pageVariants = {
     initial: {
-      display: 0,
+      x: 100,
     },
     in: {
-      x: 50,
+      x: 0,
     },
     out: {
       x: 0,
