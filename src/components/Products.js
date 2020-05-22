@@ -3,37 +3,45 @@ import data from "../data/products.json"
 import { Link } from 'react-router-dom';
 import "../App.scss"
 import { motion } from "framer-motion"
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
 
-
-function Products({ match, animation, location, history }) {
-    console.log(location);
-
+function Products({ match, animation, history }) {
     const [myData, setMyData] = useState(data);
+    const [iconDirection, setIconDirection] = useState("");
+    const [clickDone, setClickDone] = useState(false);
+    console.log(iconDirection);
 
     const descending = [].concat(data)
-        .sort((a, b) => a.name < b.name ? 1 : -1);
+        .sort((a, b) => a.price < b.price ? 1 : -1);
 
     const ascending = [].concat(data)
-        .sort((a, b) => a.name > b.name ? 1 : -1);
+        .sort((a, b) => a.price > b.price ? 1 : -1);
 
     const ascSorting = () => {
-        setMyData(ascending); history.replace({
+        setClickDone(true)
+        setMyData(ascending);
+        history.replace({
             pathname: '/products',
             search: '?sort=asc',
         })
+        setIconDirection("ascending")
     }
 
     const descSorting = () => {
-        setMyData(descending); history.replace({
+        setClickDone(true)
+        setMyData(descending);
+        history.replace({
             pathname: '/products',
             search: '?sort=desc',
         })
+        setIconDirection("descending")
     }
     const reset = () => {
         setMyData(data); history.replace({
             pathname: '/products',
             search: '',
         })
+        setIconDirection("")
     }
     return (
         <motion.div className="container"
@@ -46,14 +54,14 @@ function Products({ match, animation, location, history }) {
             <ul className="responsive-table">
                 <div className="table-sorting">
                     <button onClick={reset}>Reset</button>
-                    <button onClick={ascSorting}>Sort up</button>
-                    <button onClick={descSorting}>Sort down</button>
+                    <button name="asc" onClick={ascSorting}>Sort up</button>
+                    <button name="desc" onClick={descSorting}>Sort down</button>
                 </div>
                 <h2> Product List</h2>
                 <li className="table-header">
                     <div className="col col-1">Name</div>
                     <div className="col col-2">Description</div>
-                    <div className="col col-3">Price</div>
+                    <div className="col col-3">Price <span>{iconDirection === "ascending" && <AiOutlineArrowUp />}{iconDirection === "descending" && <AiOutlineArrowDown />}</span></div>
                 </li>
 
 

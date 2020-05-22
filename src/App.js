@@ -25,7 +25,7 @@ function App() {
       x: 0,
     },
     out: {
-      x: 0,
+      x: 100,
     },
   }
 
@@ -47,7 +47,7 @@ function App() {
         </nav>
         <AnimatePresence>
           <Switch>
-            <Route path={`/products/:slug`} render={(props) => <Product data={dataArray} animation={pageVariants}{...props} />} />
+            <Route path={`/products/:slug`} render={(props) => <Product data={data} animation={pageVariants} {...props} />} />
             <Route path="/products" render={(props) => <Products animation={pageVariants} {...props} />} />
             <Route path="/" render={(props) => <Home data={fourItems} animation={pageVariants} {...props} />} />
           </Switch>

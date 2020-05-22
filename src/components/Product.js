@@ -3,27 +3,26 @@ import "../App.scss"
 import { MdKeyboardBackspace } from "react-icons/md";
 import { motion } from "framer-motion"
 
-const Product = ({ match, data, history, animation }) => {
+const Product = ({ match, data, history, animation, location }) => {
     let [index, setIndex] = useState(0);
-
     let product = data[index];
+
+
     let randomNumber = Math.floor(Math.random() * (100 - 50) + 50);
     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
 
     useEffect(() => {
+
         const currentItem = data.find(eachProduct => eachProduct.slug === match.params.slug);
         let indexOfProduct = data.indexOf(currentItem)
         setIndex(indexOfProduct)
 
-    }, []);
+    }, [match.params.slug]);
 
     function clickHandler(e) {
+        history.replace(`/products/${product.slug}`);
         setIndex(e.currentTarget.name === "next" ? index + 1 : index - 1)
-        history.replace(`/products/${product.slug}`)
     }
-
-
-
 
     return (
 

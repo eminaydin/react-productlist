@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-const Home = ({ data }) => {
+import { motion } from "framer-motion"
+const Home = ({ data, animation }) => {
 
 
     return (
-        <div>
+        <motion.div
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={animation}>
             <h1>Welcome user</h1>
-            <div class="boxes">
+            <div className="boxes">
                 {data.map(({ price, name, shortDescription, slug, id }) => {
                     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
                     return <Link to={`products/${slug}`} className="item" key={id}>
@@ -18,7 +22,7 @@ const Home = ({ data }) => {
                     </Link>
                 })}
             </div>
-        </div >
+        </motion.div >
     );
 }
 
