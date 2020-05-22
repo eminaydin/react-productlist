@@ -57,7 +57,7 @@ function Products({ match, animation, history }) {
                     <button name="asc" onClick={ascSorting}>Sort up</button>
                     <button name="desc" onClick={descSorting}>Sort down</button>
                 </div>
-                <h2> Product List</h2>
+                <h2> Product List {iconDirection}</h2>
                 <li className="table-header">
                     <div className="col col-1">Name</div>
                     <div className="col col-2">Description</div>
