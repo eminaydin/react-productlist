@@ -4,12 +4,28 @@ import { Link } from 'react-router-dom';
 import "../App.scss"
 import { motion } from "framer-motion"
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
+import { Input } from 'semantic-ui-react';
 
 function Products({ match, animation, history }) {
     const [myData, setMyData] = useState(data);
     const [iconDirection, setIconDirection] = useState("");
     const [clickDone, setClickDone] = useState(false);
-    console.log(iconDirection);
+    const [stateObject, setObjectState] = useState({
+        query: '',
+        filteredData: data,
+    });
+
+
+    const handleInputChange = event => {
+        const query = event.target.value;
+        setObjectState(({
+            query,
+            filteredData: myData.filter(element => {
+                return element.name.toLowerCase().includes(query.toLowerCase());
+            })
+        }))
+    };
+    console.log(stateObject.filteredData);
 
     const descending = [].concat(data)
         .sort((a, b) => a.price < b.price ? 1 : -1);
@@ -58,6 +74,9 @@ function Products({ match, animation, history }) {
                     <button name="desc" onClick={descSorting}>Sort down</button>
                 </div>
                 <h2> Product List {iconDirection}</h2>
+                <Input
+                    value={stateObject.query}
+                    onChange={handleInputChange} />
                 <li className="table-header">
                     <div className="col col-1">Name</div>
                     <div className="col col-2">Description</div>
@@ -67,7 +86,7 @@ function Products({ match, animation, history }) {
 
 
 
-                {myData.map(({ name, shortDescription, price, id, slug }) => {
+                {stateObject.filteredData.map(({ name, shortDescription, price, id, slug }) => {
                     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
                     return (
                         <div key={id}>
