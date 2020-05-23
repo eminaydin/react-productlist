@@ -12,6 +12,7 @@ import Product from "./components/Product";
 import data from "./data/products.json";
 import { AnimatePresence, motion } from "framer-motion"
 
+
 function App() {
   const dataArray = [...data]
   dataArray.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
