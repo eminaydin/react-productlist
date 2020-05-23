@@ -7,57 +7,46 @@ import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
 import { Input } from 'semantic-ui-react';
 
 function Products({ match, animation, history }) {
-    const [myData, setMyData] = useState(data);
+    const [initialData, setInitialData] = useState(data);
     const [iconDirection, setIconDirection] = useState("");
-    const [clickDone, setClickDone] = useState(false);
-    const [stateObject, setObjectState] = useState({
+    const [stateObject, setStateObject] = useState({
         query: '',
         filteredData: data,
     });
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const handleInputChange = event => {
+        setIsLoading(true)
         const query = event.target.value;
-        setObjectState(({
+        setTimeout(() => { setIsLoading(false) }, 300);
+        setStateObject({
             query,
-            filteredData: myData.filter(element => {
+            filteredData: initialData.filter(element => {
                 return element.name.toLowerCase().includes(query.toLowerCase());
             })
-        }))
+        })
+
     };
-    console.log(stateObject.filteredData);
 
-    const descending = [].concat(data)
-        .sort((a, b) => a.price < b.price ? 1 : -1);
 
-    const ascending = [].concat(data)
-        .sort((a, b) => a.price > b.price ? 1 : -1);
+    const handle = (e) => {
+        const target = e.currentTarget.name;
+        const descending = [].concat(stateObject.filteredData)
+            .sort((a, b) => a.price < b.price ? 1 : -1);
+        const ascending = [].concat(stateObject.filteredData)
+            .sort((a, b) => a.price > b.price ? 1 : -1);
 
-    const ascSorting = () => {
-        setClickDone(true)
-        setMyData(ascending);
-        history.replace({
-            pathname: '/products',
-            search: '?sort=asc',
-        })
-        setIconDirection("ascending")
-    }
-
-    const descSorting = () => {
-        setClickDone(true)
-        setMyData(descending);
-        history.replace({
-            pathname: '/products',
-            search: '?sort=desc',
-        })
-        setIconDirection("descending")
-    }
-    const reset = () => {
-        setMyData(data); history.replace({
-            pathname: '/products',
-            search: '',
-        })
-        setIconDirection("")
+        history.replace({ search: `?sort=${target}` })
+        setIconDirection(target)
+        if (target === "descending") {
+            setStateObject({ filteredData: descending })
+        } else if (target === "ascending") {
+            setStateObject({ filteredData: ascending })
+        } else if (target === "reset") {
+            setStateObject({ filteredData: data })
+            setIconDirection("")
+        }
     }
     return (
         <motion.div className="container"
@@ -69,23 +58,26 @@ function Products({ match, animation, history }) {
         >
             <ul className="responsive-table">
                 <div className="table-sorting">
-                    <button onClick={reset}>Reset</button>
-                    <button name="asc" onClick={ascSorting}>Sort up</button>
-                    <button name="desc" onClick={descSorting}>Sort down</button>
+                    <button name="reset" onClick={handle}>Reset</button>
+                    <button name="ascending" onClick={handle}>Sort up</button>
+                    <button name="descending" onClick={handle}>Sort down</button>
                 </div>
                 <h2> Product List {iconDirection}</h2>
+
                 <Input
+                    icon={{ name: 'search', circular: true, link: true }}
+                    placeholder='Search...'
+                    loading={isLoading}
                     value={stateObject.query}
-                    onChange={handleInputChange} />
+                    onChange={handleInputChange}
+                    style={{ margin: "20px" }}
+                />
                 <li className="table-header">
                     <div className="col col-1">Name</div>
                     <div className="col col-2">Description</div>
                     <div className="col col-3">Price <span>{iconDirection === "ascending" && <AiOutlineArrowUp />}{iconDirection === "descending" && <AiOutlineArrowDown />}</span></div>
                 </li>
-
-
-
-
+                {stateObject.filteredData.length < 1 && "Sorry no match found"}
                 {stateObject.filteredData.map(({ name, shortDescription, price, id, slug }) => {
                     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
                     return (
