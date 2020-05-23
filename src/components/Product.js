@@ -6,23 +6,29 @@ import { motion } from "framer-motion"
 const Product = ({ match, data, history, animation, location }) => {
     let [index, setIndex] = useState(0);
     let product = data[index];
-
-
     let randomNumber = Math.floor(Math.random() * (100 - 50) + 50);
     const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price);
 
     useEffect(() => {
-
         const currentItem = data.find(eachProduct => eachProduct.slug === match.params.slug);
         let indexOfProduct = data.indexOf(currentItem)
         setIndex(indexOfProduct)
-
-    }, [match.params.slug]);
+    }, []);
 
     function clickHandler(e) {
-        history.replace(`/products/${product.slug}`);
-        setIndex(e.currentTarget.name === "next" ? index + 1 : index - 1)
+        const target = e.currentTarget.name;
+        if (target === "next") {
+            const nextProduct = data[index + 1]
+            setIndex(index + 1)
+            history.replace(`/products/${nextProduct.slug}`)
+        } else {
+            const prevProduct = data[index - 1]
+            setIndex(index - 1)
+            history.replace(`/products/${prevProduct.slug}`)
+        }
     }
+
+
 
     return (
 
@@ -32,7 +38,7 @@ const Product = ({ match, data, history, animation, location }) => {
             variants={animation}>
             <div className="card">
                 <div className="card__title">
-                    <div className="icon" onClick={() => history.goBack()} >
+                    <div className="icon" onClick={() => history.replace("/products")} >
                         <a href="#"> <MdKeyboardBackspace /></a>
                     </div>
                     <h3>New products</h3>
