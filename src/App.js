@@ -11,7 +11,7 @@ import Home from './components/Home';
 import Product from "./components/Product";
 import data from "./data/products.json";
 import { AnimatePresence, motion } from "framer-motion"
-
+import 'semantic-ui-css/semantic.min.css'
 
 function App() {
   const dataArray = [...data]
