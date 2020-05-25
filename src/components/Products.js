@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import data from "../data/products.json"
 import { Link } from 'react-router-dom';
 import "../App.scss"
 import { motion } from "framer-motion"
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
 import { Input } from 'semantic-ui-react';
+import queryString from "query-string"
 
-function Products({ match, animation, history }) {
+function Products({ match, animation, history, location }) {
     const [initialData, setInitialData] = useState(data);
     const [iconDirection, setIconDirection] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [stateObject, setStateObject] = useState({
         query: '',
         filteredData: data,
     });
-    const [isLoading, setIsLoading] = useState(false);
-
+    const parsed = queryString.parse(location.search);
+    const descending = [].concat(stateObject.filteredData)
+        .sort((a, b) => a.price < b.price ? 1 : -1);
+    const ascending = [].concat(stateObject.filteredData)
+        .sort((a, b) => a.price > b.price ? 1 : -1);
 
     const handleInputChange = event => {
         setIsLoading(true)
@@ -26,28 +31,56 @@ function Products({ match, animation, history }) {
                 return element.name.toLowerCase().includes(query.toLowerCase());
             })
         })
+        if (parsed.sort === "descending") {
+            setStateObject({
+                query,
+                filteredData: initialData.filter(element => {
+                    return element.name.toLowerCase().includes(query.toLowerCase());
+                }).sort((a, b) => a.price > b.price ? 1 : -1)
 
+            })
+
+        } else if (parsed.sort === "ascending") {
+            setStateObject({
+                query,
+                filteredData: initialData.filter(element => {
+                    return element.name.toLowerCase().includes(query.toLowerCase());
+                }).sort((a, b) => a.price < b.price ? 1 : -1)
+
+            })
+        }
     };
+
+
+
+
+    useEffect(() => {
+
+
+
+        if (parsed.sort === "descending") {
+            setStateObject({ filteredData: descending })
+            setIconDirection("descending")
+        } else if (parsed.sort === "ascending") {
+            setStateObject({ filteredData: ascending })
+            setIconDirection("ascending")
+        } else if (!parsed.sort) {
+            setStateObject({ filteredData: data })
+            setIconDirection("")
+        }
+
+    }, [location.search]);
 
 
     const handle = (e) => {
         const target = e.currentTarget.name;
-        const descending = [].concat(stateObject.filteredData)
-            .sort((a, b) => a.price < b.price ? 1 : -1);
-        const ascending = [].concat(stateObject.filteredData)
-            .sort((a, b) => a.price > b.price ? 1 : -1);
+        if (target === "reset") {
+            history.replace("/products")
+        } else { history.replace({ search: `?sort=${target}` }) }
 
-        history.replace({ search: `?sort=${target}` })
-        setIconDirection(target)
-        if (target === "descending") {
-            setStateObject({ filteredData: descending })
-        } else if (target === "ascending") {
-            setStateObject({ filteredData: ascending })
-        } else if (target === "reset") {
-            setStateObject({ filteredData: data })
-            setIconDirection("")
-        }
+
     }
+
     return (
         <motion.div className="container"
             initial="initial"
