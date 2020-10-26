@@ -38,10 +38,9 @@ const Product = ({ match, data, history, animation }) => {
       <div className="card">
         <div className="card__title">
           <div className="icon" onClick={() => history.replace("/products")}>
-            <a href="#">
-              {" "}
+            <span>
               <MdKeyboardBackspace />
-            </a>
+            </span>
           </div>
           <h3>New products</h3>
         </div>

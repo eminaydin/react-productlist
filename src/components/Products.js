@@ -8,13 +8,14 @@ import { Input } from "semantic-ui-react";
 import queryString from "query-string";
 
 function Products({ match, animation, history, location }) {
-  const [initialData, setInitialData] = useState(data);
+  const initialData = data;
   const [iconDirection, setIconDirection] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [stateObject, setStateObject] = useState({
     query: "",
     filteredData: data,
   });
+
   const parsed = queryString.parse(location.search);
   const descending = []
     .concat(stateObject.filteredData)
