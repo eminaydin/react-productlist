@@ -1,12 +1,14 @@
 body {
-  height: 98vh;
+  height: 98vh !important;
   background-color: cornsilk !important;
 }
 main {
   max-width: 60%;
   margin: 0 auto;
 }
-
+.popular-products {
+  text-align: center;
+}
 .card {
   box-shadow: 0 6px 6px rgba(#000, 0.3);
   transition: 200ms;
