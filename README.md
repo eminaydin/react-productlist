@@ -1,11 +1,35 @@
-### The Project
+## React Product List
 
-React was a main framework that has been used to build user interface in this project. React-router has provided me to generate new url paths to display each product and also the navigation pages. Data is provided from separate json file and then rendered accordingly. On home page you can see first 4 highest priced products. On click of each item you will be directed to corresponding page of that individual product.
+<a href="https://react-product-list.netlify.app/" target="_blank"><h3 align="left">Click here for demo</h3></a>
 
-On Products page you can see whole list of products. There are buttons which enables user to sort the list of products by their price. There is also input field which provides a functionality of filtering products for user. You can simply type some keywords and then see if there are matching results from our product list.
+## Table of Contents
 
-## Challenges
+- [General info](#general-info)
+- [Preview](#preview)
+- [Technologies](#technologies)
+- [Contact](#contact)
 
-In this project I've mastered my skills on react-router. At the beginning it was a little bit tricky to generate specific url for each product but later on I figured out my own way and now its working perfectly fine. I also wanted to have next and previous buttons so user can navigate through products once they are in specific product page. To do so I came up with idea of using indexes of the products and that went perfectly well.
+## General Info
 
-All in all in this project I've learned a lot, especially about react-router and it was definitely fun to discover new things along the way. You can check out the live version here : https://react-product-list.netlify.app/
+In this project I have created a website with dummy data where I could display bunch of products to user. On the homepage user will see the top products. On the products page, user can see whole list of products and try to filter them by either typing some keywords or simply by sorting. If user clicks on the product, respective information will be displayed in another screen.
+
+The project itself has plenty of tiny work to do. Therefore I had to pay a lot of attention to edge cases. At the end I am happy with the project and grateful for what I have learnt along the way!
+
+## Preview
+
+![Product List](src/assets/product-list.gif)
+
+## Technologies
+
+- HTML
+- CSS
+- SASS
+- Javascript
+- React
+- React-router
+- Semantic-Ui
+- Framer-Motion
+
+## Contact
+
+Created by [eminaydin](https://github.com/eminaydin) - feel free to contact me for any inquiries!
